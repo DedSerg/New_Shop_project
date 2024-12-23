@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f4f8; /* Пастельный фон */
+            color: #333; /* Яркий текст */
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.9); /* Белый полупрозрачный фон для заголовка */
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+        }
+
+        .profile-icon {
+            width: 40px; /* Ширина иконки */
+            height: 40px; /* Высота иконки */
+            border-radius: 50%; /* Округлое изображение */
+            object-fit: cover; /* Обрезка изображения */
+        }
+
+        .profile-label {
+            display: block; /* Позволяет тексту занимать отдельную строку */
+            text-align: center; /* Центрирует текст под иконкой */
+            margin-top: 5px; /* Отступ между иконкой и текстом */
+            font-weight: bold; /* Жирный текст */
+            color: #333; /* Цвет текста */
+        }
+
+        .navbar-nav .nav-link {
+            color: #007bff !important; /* Ярко-синий цвет ссылок */
+            font-weight: 600;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff6f61 !important; /* Цвет ссылки при наведении */
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.8rem; /* Уменьшение размера текста */
+            color: #555; /* Яркий текст в футере */
+            margin: 0; /* Убираем отступы */
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            background-color: #ffffff; /* Белый фон карточки */
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Увеличение карточки при наведении */
+        }
+
+        .card-title {
+            color: #007bff; /* Ярко-синий цвет заголовка карточки */
+        }
+
+        .card-text {
+            color: #555; /* Яркий текст карточки */
+        }
+
+        .display-4 {
+            color: #ff6f61; /* Яркий цвет заголовка */
+        }
+
+        .lead {
+            color: #333; /* Яркий цвет подзаголовка */
+        }
+
+        .text-center {
+            color: #333; /* Яркий цвет текста */
+        }
+
+        @media (max-width: 576px) {
+            .navbar-nav {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="text-center">DeDушкин магазин</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
+                        <a class="nav-link" href="{% url 'profile' %}">
+                              {% with profile=user.profile %}
+                                {% if profile.profile_picture %}
+                                   <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-icon" />
+                                {% else %}
+                                   <img src="{% static 'images/icon.png' %}" alt="Default Profile Picture" class="profile-icon" />
+                                {% endif %}
+                              {% endwith %}
+                          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ВХОД</a></li>
+                        </a>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'category_list' %}">Наш прилавок</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        {% block content %}
+        <!-- Основной контент страницы будет вставляться сюда -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} "The DeD Group". Все права защищены.</p>
+    </footer>
+
+    <!-- Подключение Bootstrap JS и jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

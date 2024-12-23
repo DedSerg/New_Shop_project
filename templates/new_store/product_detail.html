@@ -1,0 +1,30 @@
+{% extends 'new_store/base.html' %}
+
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <p>Цена: {{ product.price }} руб.</p>
+    <p>Описание: {{ product.description }}</p>
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+    {% endif %}
+
+    <form action="{% url 'add_to_cart' product.pk %}" method="post">
+        {% csrf_token %}
+        <label for="quantity">Количество (в кг):</label>
+        <input type="number" name="quantity" id="quantity" min="1" step="0.1" required>
+        <button type="submit" class="add-to-cart-button">Кидай в авоську</button>
+    </form>
+
+    <div class="container" style="position: relative; min-height: 300px;"> <!-- Добавьте min-height для видимости -->
+        <div class="navigation mb-3 d-flex flex-column align-items-end" style="position: absolute; top: 10px; right: 10px;">
+            <a href="{% url 'cart_view' %}" class="btn btn-primary mb-2">Заглянем в авоську</a>
+
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'new_store/base.html' %}
+
+{% load static %}
+{% load custom_filters %}  <!-- Загрузка пользовательских фильтров -->
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Регистрация</h1>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="border p-4 rounded shadow">
+                {% csrf_token %}
+
+                <!-- Отображение ошибок валидации -->
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Пожалуйста, исправьте следующие ошибки:</strong>
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Явное указание полей формы с добавлением класса и placeholder'а -->
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class_and_placeholder:"form-control" }}  <!-- Используем новый фильтр -->
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+            </form>
+            <p class="mt-3 text-center">Уже есть учетная запись? <a href="{% url 'login' %}">Войдите</a></p>
+            <p class="text-center"><a href="{% url 'home' %}">Перейти на главную страницу</a></p>
+        </div>
+    </div>
+</div>
+<pre>{{ field }}</pre>
+{% endblock %}

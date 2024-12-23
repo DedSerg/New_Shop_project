@@ -1,0 +1,41 @@
+body {
+    background-color: Linen; /* Светлый фон для страницы */
+    font-family: 'Arial', sans-serif; /* Шрифт для текста */
+}
+
+h1 {
+    color: #343a40; /* Цвет заголовка */
+    margin-bottom: 30px; /* Отступ снизу */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Тень для заголовка */
+}
+
+.card {
+    border: none; /* Убираем границу карточки */
+    border-radius: 10px; /* Закругленные углы карточки */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Тень для карточки */
+    transition: transform 0.3s; /* Плавный переход для эффекта наведения */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Эффект поднятия карточки при наведении */
+}
+
+.card-img-top {
+    border-top-left-radius: 10px; /* Закругление верхних углов */
+    border-top-right-radius: 10px; /* Закругление верхних углов */
+    height: 200px; /* Фиксированная высота изображения */
+    object-fit: cover; /* Обрезка изображения по размеру карточки */
+}
+
+.btn {
+    width: 100%; /* Кнопки занимают всю ширину карточки */
+    margin-top: 10px; /* Отступ сверху */
+}
+
+.input-group {
+    margin-top: 10px; /* Отступ сверху для группы ввода */
+}
+
+.text-muted {
+    color: #6c757d; /* Цвет для текста с классом text-muted */
+}

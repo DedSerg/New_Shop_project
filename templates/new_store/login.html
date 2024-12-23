@@ -1,0 +1,22 @@
+{% extends 'new_store/base.html' %}
+
+{% load static %}  <!-- Загрузка библиотеки статических файлов -->
+
+{% block title %}Вход{% endblock %}  <!-- Заголовок страницы -->
+
+{% block content %}
+    <div class="login-container">  <!-- Контейнер для формы входа -->
+        <h1>Вход</h1>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+        <form method="post" class="login-form">  <!-- Классы для стилизации формы -->
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Отображение формы -->
+            <button type="submit" class="btn btn-primary">Войти</button>  <!-- Кнопка с классами Bootstrap -->
+        </form>
+
+        <p class="register-link">  <!-- Ссылка на регистрацию -->
+            Не зарегистрированы? <a href="{% url 'register' %}">Создайте аккаунт</a>
+        </p>
+    </div>
+{% endblock %}

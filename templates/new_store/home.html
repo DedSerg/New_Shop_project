@@ -1,0 +1,24 @@
+
+{% extends 'new_store/base.html' %}
+
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1 class="mt-5">Добро пожаловать!</h1>
+    <p class="lead">Только самые свежие фермерские продукты.</p>
+
+
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <br><br>
+    <p class="lead">Пожалуйста, войдите или зарегистрируйтесь, чтобы продолжить.</p>
+    <div class="button-container d-flex justify-content-center">
+    <a href="{% url 'register' %}" class="btn btn-success mx-2">Регистрация</a>
+
+   </div>
+
+
+
+{% endblock %}

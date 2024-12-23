@@ -1,0 +1,24 @@
+{% extends 'new_store/base.html' %}
+
+{% load static %}
+{% block title %}Наш прилавок{% endblock %}
+
+{% block content %}
+    <h1 class="mt-5">Прилавок</h1>
+    <ul class="list-group mt-3">
+        {% for category in categories %}
+            <li class="list-group-item">
+                <a href="{% url 'category_detail' category.pk %}">
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 100px; height: auto;">  <!-- Изображение категории -->
+                    {{ category.name }}
+                </a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Нет доступных категорий.</li>
+        {% endfor %}
+    </ul>
+    <div class="d-flex justify-content-between mt-4"> <!-- Flexbox для выравнивания кнопок -->
+
+        <a href="{% url 'cart_view' %}" class="btn btn-primary">Ваша авоська</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,1 @@
+default_app_config = 'new_store.apps.YourAppConfig'

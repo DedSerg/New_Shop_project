@@ -1,0 +1,21 @@
+{% extends 'new_store/base.html' %}
+
+{% block content %}
+  <h2>Мой Профиль</h2>
+  <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height:auto;">
+  <p><strong>Имя:</strong> {{ profile.first_name }}</p>
+  <p><strong>Фамилия:</strong> {{ profile.last_name }}</p>
+  <p><strong>Email:</strong> {{ profile.email }}</p>
+  <p><strong>Телефон:</strong> {{ profile.phone_number }}</p>
+  <p><strong>Дата Рождения:</strong> {{ profile.date_of_birth }}</p>
+  <a href="{% url 'edit_profile' %}">Редактировать Профиль</a>
+
+   <div class="container" style="position: relative; min-height: 300px;"> <!-- Добавьте min-height для видимости -->
+        <div class="navigation mb-3 d-flex flex-column align-items-end" style="position: absolute; top: 10px; right: 10px;">
+
+
+            <a href="{% url 'category_list' %}" class="btn btn-primary">К покупкам</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Выход</a> <!-- Добавлена кнопка "Выход" -->
+        </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'new_store/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} - Категория{% endblock %}
+
+{% block content %}
+<div class="container" style="position: relative; min-height: 300px;">
+    <div class="navigation d-flex justify-content-end mb-3" style="position: absolute; top: 5px; right: 1px;"> <!-- Измените на flex-row -->
+        <a href="{% url 'cart_view' %}" class="btn btn-primary mr-2">Ваша авоська</a>
+
+    </div>
+
+    <h1 class="text-left" style="font-size: 1.5rem;">{{ category.name }}</h1> <!-- Уменьшение размера шрифта и выравнивание -->
+
+
+    <h2 style="font-size: 16px; color: red;">Продукты в этой категории:</h2>
+
+    <div class="product-container mt-4 d-flex flex-wrap justify-content-between">
+        {% for product in page_obj %}
+            <div class="product-card mb-4" style="width: 30%;">
+                <a href="{% url 'product_detail' product.pk %}" class="product-name">{{ product.name }}</a>
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" style="width: 100%;">
+                {% endif %}
+
+                <div class="product-info">
+                    <p class="product-price">Цена: {{ product.price }} руб.</p>
+                    <p class="product-description">{{ product.description }}</p>
+
+                    <form action="{% url 'add_to_cart' product.pk %}" method="post" class="add-to-cart-form">
+                        {% csrf_token %}
+                        <label for="quantity_{{ product.pk }}">Количество (в кг):</label>
+                        <input type="number" name="quantity" id="quantity_{{ product.pk }}" min="1" step="0.1" required>
+                        <button type="submit" class="add-to-cart-button btn btn-success">Кидай в авоську</button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>Нет доступных продуктов в этой категории.</p>
+        {% endfor %}
+    </div>
+
+    <div class="pagination mt-4">
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        <div class="pagination-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

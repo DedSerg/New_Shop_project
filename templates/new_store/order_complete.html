@@ -1,0 +1,82 @@
+{% extends 'new_store/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-4">
+
+        <h1 class="display-4 text-success">
+            <i class="fas fa-check-circle"></i> Спасибо за ваш заказ!
+        </h1>
+        <p class="lead">
+            Ваш заказ <strong>№{{ order.id }}</strong> на сумму <strong>{{ total_price|floatformat:2 }} ₽</strong> успешно оформлен.
+        </p>
+    </div>
+
+
+
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Детали заказа</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Дата заказа:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Статус заказа:</strong> <span class="badge bg-primary text-uppercase">{{ order.get_status_display }}</span></p>
+            {% if order.shipping_address %}
+                <p><strong>Адрес доставки:</strong> {{ order.shipping_address }}</p>
+            {% endif %}
+
+            <h5 class="mt-4">Состав заказа:</h5>
+            <div class="table-responsive">
+                <table class="table table-hover mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Товар</th>
+                            <th>Количество</th>
+                            <th>Цена за единицу</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="50" class="me-2">
+                                {% endif %}
+                                {{ item.product.name }}
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price|floatformat:2 }} ₽</td>
+                            <td>{{ item.total_price|floatformat:2 }} ₽</td>  <!-- Исправлено на item.total_price -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-end">Общая сумма:</th>
+                            <th>{{ total_price|floatformat:2 }} ₽</th>  <!-- Исправлено на total_price -->
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-home"></i> Вернуться на главную
+        </a>
+    </div>
+
+    <div class="mt-5">
+        <h5>Что будет дальше?</h5>
+        <p>Мы свяжемся с вами для подтверждения заказа и уточнения деталей доставки. Вы можете отслеживать статус вашего заказа в личном кабинете.</p>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        Если у вас возникли вопросы, свяжитесь с нашей службой поддержки по телефону +7(910)519-85-47
+    </div>
+</div>
+{% endblock %}
